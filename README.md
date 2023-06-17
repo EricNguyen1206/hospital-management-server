@@ -4,14 +4,14 @@
 
 ## Description
 
-This project using NestJS, TypeORM, PostgreSQL
+This project uses NestJS, TypeORM, PostgreSQL
 
 ## Work Flow
 
-- check out new branch from main (pattern: [feat/fix]/yourname/content)
-- merge branch into develop
-- develop merge into main
-  | If has conflic checkout new branch from develop to fix conflig and merge fixed branch into develop
+1. check out the `new branch` from the `main` (pattern: [feat/fix]/your name/content)
+2. merge `branch` into `develop` and self-test
+3. merge the `branch` into `main` after checking `develop` without issues
+  | If has a conflict checkout `fix branch` from develop to fix the conflict and merge the `fixed branch` into develop (back to step 2)
 
 ## Installation
 

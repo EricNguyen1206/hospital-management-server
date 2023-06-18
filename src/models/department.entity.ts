@@ -1,17 +1,45 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { CompositeEntity } from './composite.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { ComponentEntity } from './component.entity';
+import { Employee } from './employee.entity';
 
 @Entity()
-export class Department implements CompositeEntity {
+export class Department implements ComponentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  departmentName: string;
+
+  @Column({ nullable: true })
+  leaderId: number;
 
   @Column()
-  description: string;
+  isActive: boolean;
 
-  @Column()
-  location: string;
+  @Column({ default: true })
+  isComposite: boolean;
+
+  @Column({ nullable: true })
+  departmentId: number;
+
+  @ManyToMany<ComponentEntity>(() => Employee)
+  @JoinTable({
+    name: 'departments_employees', // table name for the junction table of this relation
+    joinColumn: {
+      name: 'department',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'employee',
+      referencedColumnName: 'id',
+    },
+  })
+  childs: ComponentEntity[];
 }

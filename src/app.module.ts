@@ -1,24 +1,28 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './controllers/app.controller/app.controller';
-import { AppService } from './services/app.service/app.service';
-import { UserController } from './controllers/user.controller';
-import { UserService } from './services/user.service';
+
+// INTERNAL
+import {
+  AppController,
+  DepartmentController,
+  EmployeeController,
+} from './controllers';
+import { AppService, DepartmentService, EmployeeService } from './services';
+import { Department } from './models/department.entity';
+import { Employee } from './models/employee.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'containers-us-west-74.railway.app',
-      port: 7051,
-      username: 'postgres',
-      password: 'w3q2UdyNkGezjeMSWDiT',
-      database: 'railway',
-      autoLoadEntities: true,
+      url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
       synchronize: true,
+      entities: [Department, Employee],
+      migrations: ['migrations/*.ts'],
     }),
+    TypeOrmModule.forFeature([Department, Employee]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, DepartmentController, EmployeeController],
+  providers: [AppService, DepartmentService, EmployeeService],
 })
 export class AppModule {}

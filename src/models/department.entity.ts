@@ -29,17 +29,5 @@ export class Department implements ComponentEntity {
   @Column({ nullable: true })
   departmentId: number;
 
-  @ManyToMany<ComponentEntity>(() => Employee)
-  @JoinTable({
-    name: 'departments_employees', // table name for the junction table of this relation
-    joinColumn: {
-      name: 'department',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'employee',
-      referencedColumnName: 'id',
-    },
-  })
   childs: ComponentEntity[];
 }

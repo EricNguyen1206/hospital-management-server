@@ -16,6 +16,14 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
+  async findEmployeesByDepartmentId(departmentId: number): Promise<Employee[]> {
+    return this.employeeRepository.find({
+      where: {
+        departmentId: departmentId,
+      },
+    });
+  }
+
   async findOne(id: number): Promise<Employee> {
     return this.employeeRepository.findOne({
       where: {

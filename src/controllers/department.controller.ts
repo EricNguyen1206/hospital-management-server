@@ -1,10 +1,13 @@
 import { Department } from '@/models/department.entity';
-import { DepartmentService } from '@/services';
+import { DepartmentService, EmployeeService } from '@/services';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('department')
 export class DepartmentController {
-  constructor(private readonly departmentService: DepartmentService) {}
+  constructor(
+    private readonly departmentService: DepartmentService,
+    private readonly employeeService: EmployeeService,
+  ) {}
 
   @Get()
   async findAll(): Promise<Department[]> {
@@ -13,7 +16,12 @@ export class DepartmentController {
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Department> {
-    return this.departmentService.findOne(id);
+    const data = this.departmentService.findOne(id);
+    (await data).childs = [].concat(
+      await this.employeeService.findEmployeesByDepartmentId(id),
+      await this.departmentService.findChildDepartments(id),
+    );
+    return data;
   }
 
   @Post()

@@ -16,6 +16,14 @@ export class DepartmentService {
     return this.departmentRepository.find();
   }
 
+  async findChildDepartments(departmentId: number): Promise<Department[]> {
+    return this.departmentRepository.find({
+      where: {
+        departmentId: departmentId,
+      },
+    });
+  }
+
   async findOne(id: number): Promise<Department> {
     return this.departmentRepository.findOne({
       where: {

@@ -1,5 +1,3 @@
-import { Employee } from '@/models/employee.entity';
-import { EmployeeService } from '@/services/employee.service';
 import {
   Controller,
   Get,
@@ -9,8 +7,14 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+// INTERNAL
+import { Employee } from '@/models/employee.entity';
+import { EmployeeService } from '@/services/employee.service';
 
 @Controller('employee')
+@ApiTags('Employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
@@ -20,7 +24,7 @@ export class EmployeeController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Employee> {
+  async findOne(@Param('id') id: string): Promise<Employee> {
     return this.employeeService.findOne(id);
   }
 
@@ -31,14 +35,14 @@ export class EmployeeController {
 
   @Put(':id')
   async update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() employee: Employee,
   ): Promise<Employee> {
     return this.employeeService.update(id, employee);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<void> {
+  async delete(@Param('id') id: string): Promise<void> {
     return this.employeeService.delete(id);
   }
 }

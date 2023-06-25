@@ -1,6 +1,6 @@
 export interface ComponentEntity {
-  id: number;
-  departmentId: number;
+  id: string;
+  departmentId: string;
   isActive: boolean;
   isComposite: boolean;
 }

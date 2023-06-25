@@ -1,11 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+// INTERNAL
 import { ComponentEntity } from './component.entity';
-import { Department } from './department.entity';
 
 @Entity()
 export class Employee implements ComponentEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   fullName: string;
@@ -25,12 +26,12 @@ export class Employee implements ComponentEntity {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
   @Column({ default: false })
   isComposite: boolean;
 
   @Column({ nullable: true })
-  departmentId: number;
+  departmentId: string;
 }

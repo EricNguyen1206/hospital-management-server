@@ -16,7 +16,7 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
-  async findEmployeesByDepartmentId(departmentId: number): Promise<Employee[]> {
+  async findEmployeesByDepartmentId(departmentId: string): Promise<Employee[]> {
     return this.employeeRepository.find({
       where: {
         departmentId: departmentId,
@@ -24,7 +24,7 @@ export class EmployeeService {
     });
   }
 
-  async findOne(id: number): Promise<Employee> {
+  async findOne(id: string): Promise<Employee> {
     return this.employeeRepository.findOne({
       where: {
         id,
@@ -32,12 +32,12 @@ export class EmployeeService {
     });
   }
 
-  async create(user: Employee): Promise<Employee> {
-    return this.employeeRepository.save(user);
+  async create(employee: Employee): Promise<Employee> {
+    return this.employeeRepository.save(employee);
   }
 
-  async update(id: number, user: Employee): Promise<Employee> {
-    await this.employeeRepository.update(id, user);
+  async update(id: string, employee: Employee): Promise<Employee> {
+    await this.employeeRepository.update(id, employee);
     return this.employeeRepository.findOne({
       where: {
         id,
@@ -45,7 +45,7 @@ export class EmployeeService {
     });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.employeeRepository.delete(id);
   }
 }

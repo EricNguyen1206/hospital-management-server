@@ -1,12 +1,13 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 // INTERNAL
+import { DepartmentService } from './department.service';
 import {
-  Department,
+  DepartmentDto,
+  ReqUpdateDepartmentDto,
   ResGetDepartmentByIdDto,
-} from '@/models/department.entity';
-import { DepartmentService } from '@/services';
+} from './department.dto';
 
 @ApiTags('Department')
 @Controller('department')
@@ -19,7 +20,7 @@ export class DepartmentController {
     description: 'OK',
   })
   @ApiResponse({ status: 404, description: 'Resource not found.' })
-  async findAll(): Promise<Department[]> {
+  async findAll(): Promise<DepartmentDto[]> {
     return this.departmentService.findAll();
   }
 
@@ -40,7 +41,15 @@ export class DepartmentController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async create(@Body() department: Department): Promise<Department> {
+  async create(@Body() department: DepartmentDto): Promise<DepartmentDto> {
     return this.departmentService.create(department);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() newDepartmentData: ReqUpdateDepartmentDto,
+  ): Promise<DepartmentDto> {
+    return this.departmentService.update(id, newDepartmentData);
   }
 }

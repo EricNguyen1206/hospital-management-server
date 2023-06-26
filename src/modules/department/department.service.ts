@@ -1,21 +1,20 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 // INTERNAL
+import { Department } from './department.entity';
 import {
-  Department,
+  DepartmentDto,
+  ReqUpdateDepartmentDto,
   ResGetDepartmentByIdDto,
-} from '@/models/department.entity';
-import { EmployeeService } from './employee.service';
+} from './department.dto';
 
 @Injectable()
 export class DepartmentService {
   constructor(
     @InjectRepository(Department)
     private readonly departmentRepository: Repository<Department>,
-    @Inject(EmployeeService)
-    private readonly employeeService: EmployeeService,
   ) {}
 
   async findAll(): Promise<Department[]> {
@@ -45,26 +44,41 @@ export class DepartmentService {
     result.isComposite = departmentEntity.isComposite;
 
     result.childs = [].concat(
-      await this.employeeService.findEmployeesByDepartmentId(id),
+      // await this.employeeService.findEmployeesByDepartmentId(id),
       await this.findChildDepartments(id),
     );
     return result;
   }
 
-  async create(department: Department): Promise<Department> {
+  async create(department: DepartmentDto): Promise<DepartmentDto> {
     return this.departmentRepository.save(department);
   }
 
-  async update(id: string, user: Department): Promise<Department> {
-    await this.departmentRepository.update(id, user);
-    return this.departmentRepository.findOne({
+  async update(
+    id: string,
+    newDepartmentData: ReqUpdateDepartmentDto,
+  ): Promise<DepartmentDto> {
+    const department = await this.departmentRepository.findOne({
       where: {
         id,
       },
     });
+    if (department) {
+      department.departmentName =
+        newDepartmentData.departmentName ?? department.departmentName;
+      department.departmentId =
+        newDepartmentData.departmentId ?? department.departmentId;
+      if (department.isActive !== newDepartmentData.isActive) {
+        department.isActive = newDepartmentData.isActive;
+      }
+      department.leaderId = newDepartmentData.leaderId ?? department.leaderId;
+    }
+
+    await this.departmentRepository.update(id, department);
+    return department;
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.departmentRepository.delete(id);
   }
 }

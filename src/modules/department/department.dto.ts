@@ -1,27 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 // INTERNAL
-import { ComponentEntity } from './component.entity';
+import { Department } from './department.entity';
+import { ComponentEntity } from '../component/component.entity';
 
-@Entity()
-export class Department implements ComponentEntity {
-  @PrimaryGeneratedColumn('uuid')
+export class DepartmentDto extends Department {
+  @ApiProperty()
   id: string;
 
-  @Column()
+  @ApiProperty()
   departmentName: string;
 
-  @Column({ nullable: true })
+  @ApiProperty()
   leaderId: string;
 
-  @Column({ default: true })
+  @ApiProperty()
   isActive: boolean;
 
-  @Column({ default: true })
+  @ApiProperty()
   isComposite: boolean;
 
-  @Column({ nullable: true })
+  @ApiProperty()
   departmentId: string;
 }
 
@@ -34,6 +33,20 @@ export class ReqCreateDepartmentDto {
 
   @ApiProperty({ required: false })
   departmentId?: string;
+}
+
+export class ReqUpdateDepartmentDto {
+  @ApiProperty({ required: false })
+  departmentName?: string;
+
+  @ApiProperty({ required: false })
+  leaderId?: string;
+
+  @ApiProperty({ required: false })
+  departmentId?: string;
+
+  @ApiProperty({ required: false })
+  isActive?: boolean;
 }
 
 export class ResGetDepartmentByIdDto extends Department {

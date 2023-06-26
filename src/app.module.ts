@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 // INTERNAL
 import { AppController, EmployeeController } from './controllers';
-import { AppService, DepartmentService, EmployeeService } from './services';
+import { AppService, EmployeeService } from './services';
 import { Employee } from './models/employee.entity';
 import { DepartmentModule } from './modules/department/department.module';
 import { Department } from './modules/department/department.entity';
@@ -22,6 +22,6 @@ import { Department } from './modules/department/department.entity';
   ],
   exports: [EmployeeService],
   controllers: [AppController, EmployeeController],
-  providers: [AppService, DepartmentService, EmployeeService],
+  providers: [AppService, EmployeeService],
 })
 export class AppModule {}

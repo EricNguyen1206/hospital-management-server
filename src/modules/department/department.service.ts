@@ -1,14 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 // INTERNAL
+import { Department } from './department.entity';
 import {
-  Department,
+  DepartmentDto,
+  ReqUpdateDepartmentDto,
   ResGetDepartmentByIdDto,
-} from '@/models/department.entity';
-import { EmployeeService } from '@/services';
-import { DepartmentDto, ReqUpdateDepartmentDto } from './department.dto';
+} from './department.dto';
 
 @Injectable()
 export class DepartmentService {

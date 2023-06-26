@@ -2,14 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 // INTERNAL
-import {
-  AppController,
-  DepartmentController,
-  EmployeeController,
-} from './controllers';
+import { AppController, EmployeeController } from './controllers';
 import { AppService, DepartmentService, EmployeeService } from './services';
-import { Department } from './models/department.entity';
 import { Employee } from './models/employee.entity';
+import { DepartmentModule } from './modules/department/department.module';
+import { Department } from './modules/department/department.entity';
 
 @Module({
   imports: [
@@ -20,9 +17,11 @@ import { Employee } from './models/employee.entity';
       entities: [Department, Employee],
       migrations: ['migrations/*.ts'],
     }),
-    TypeOrmModule.forFeature([Department, Employee]),
+    TypeOrmModule.forFeature([Employee]),
+    DepartmentModule,
   ],
-  controllers: [AppController, DepartmentController, EmployeeController],
+  exports: [EmployeeService],
+  controllers: [AppController, EmployeeController],
   providers: [AppService, DepartmentService, EmployeeService],
 })
 export class AppModule {}

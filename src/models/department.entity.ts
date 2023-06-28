@@ -5,21 +5,21 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ComponentEntity } from './component.entity';
 
 @Entity()
-export class department implements ComponentEntity {
-  @PrimaryGeneratedColumn()
+export class Department implements ComponentEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
   name: string;
 
   @Column({ default: true })
-  isactive: boolean;
+  isActive: boolean;
 
   @Column({ default: true })
-  iscomposite: boolean;
+  isComposite: boolean;
 
   @Column({ nullable: true })
-  departmentid: number;
+  departmentId: number;
 }
 
 export class ReqCreateDepartmentDto {
@@ -30,7 +30,7 @@ export class ReqCreateDepartmentDto {
   departmentid?: string;
 }
 
-export class ResGetDepartmentByIdDto extends department {
+export class ResGetDepartmentByIdDto extends Department {
   @ApiProperty()
   id: number;
 

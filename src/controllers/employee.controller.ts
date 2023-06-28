@@ -10,7 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 // INTERNAL
-import { employee } from '@/models/employee.entity';
+import { Employee } from '@/models/employee.entity';
 import { EmployeeService } from '@/services/employee.service';
 
 @Controller('employee')
@@ -19,25 +19,25 @@ export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Get()
-  async findAll(): Promise<employee[]> {
+  async findAll(): Promise<Employee[]> {
     return this.employeeService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<employee> {
+  async findOne(@Param('id') id: number): Promise<Employee> {
     return this.employeeService.findOne(id);
   }
 
   @Post()
-  async create(@Body() Employee: employee): Promise<employee> {
+  async create(@Body() Employee: Employee): Promise<Employee> {
     return this.employeeService.create(Employee);
   }
 
   @Put(':id')
   async update(
-    @Param('id') id: string,
-    @Body() employee: employee,
-  ): Promise<employee> {
+    @Param('id') id: number,
+    @Body() employee: Employee,
+  ): Promise<Employee> {
     return this.employeeService.update(id, employee);
   }
 

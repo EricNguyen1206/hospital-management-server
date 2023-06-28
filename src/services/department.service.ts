@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 // INTERNAL
 import {
-  department,
+  Department,
   ResGetDepartmentByIdDto,
 } from '@/models/department.entity';
 import { EmployeeService } from './employee.service';
@@ -12,20 +12,20 @@ import { EmployeeService } from './employee.service';
 @Injectable()
 export class DepartmentService {
   constructor(
-    @InjectRepository(department)
-    private readonly departmentRepository: Repository<department>,
+    @InjectRepository(Department)
+    private readonly departmentRepository: Repository<Department>,
     @Inject(EmployeeService)
     private readonly employeeService: EmployeeService,
   ) {}
 
-  async findAll(): Promise<department[]> {
+  async findAll(): Promise<Department[]> {
     return this.departmentRepository.find();
   }
 
-  async findChildDepartments(departmentId: number): Promise<department[]> {
+  async findChildDepartments(departmentId: number): Promise<Department[]> {
     return this.departmentRepository.find({
       where: {
-        departmentid: departmentId,
+        departmentId: departmentId,
       },
     });
   }
@@ -38,10 +38,10 @@ export class DepartmentService {
     });
     const result = new ResGetDepartmentByIdDto();
     result.id = departmentEntity.id;
-    result.departmentid = departmentEntity.departmentid;
+    result.departmentid = departmentEntity.departmentId;
     result.name = departmentEntity.name;
-    result.isactive = departmentEntity.isactive;
-    result.iscomposite = departmentEntity.iscomposite;
+    result.isactive = departmentEntity.isActive;
+    result.iscomposite = departmentEntity.isComposite;
 
     result.childs = [].concat(
       await this.employeeService.findEmployeesByDepartmentId(id),
@@ -50,11 +50,11 @@ export class DepartmentService {
     return result;
   }
 
-  async create(department: department): Promise<department> {
+  async create(department: Department): Promise<Department> {
     return this.departmentRepository.save(department);
   }
 
-  async update(id: number, user: department): Promise<department> {
+  async update(id: number, user: Department): Promise<Department> {
     await this.departmentRepository.update(id, user);
     return this.departmentRepository.findOne({
       where: {

@@ -8,8 +8,8 @@ import {
   EmployeeController,
 } from './controllers';
 import { AppService, DepartmentService, EmployeeService } from './services';
-import { department } from './models/department.entity';
-import { employee } from './models/employee.entity';
+import { Department } from './models/department.entity';
+import { Employee } from './models/employee.entity';
 
 @Module({
   imports: [
@@ -17,10 +17,10 @@ import { employee } from './models/employee.entity';
       type: 'postgres',
       url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
       synchronize: true,
-      entities: [department, employee],
+      entities: [Department, Employee],
       migrations: ['migrations/*.ts'],
     }),
-    TypeOrmModule.forFeature([department, employee]),
+    TypeOrmModule.forFeature([Department, Employee]),
   ],
   controllers: [AppController, DepartmentController, EmployeeController],
   providers: [AppService, DepartmentService, EmployeeService],

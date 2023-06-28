@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 // INTERNAL
 import {
-  Department,
+  department,
   ResGetDepartmentByIdDto,
 } from '@/models/department.entity';
 import { EmployeeService } from './employee.service';
@@ -12,25 +12,25 @@ import { EmployeeService } from './employee.service';
 @Injectable()
 export class DepartmentService {
   constructor(
-    @InjectRepository(Department)
-    private readonly departmentRepository: Repository<Department>,
+    @InjectRepository(department)
+    private readonly departmentRepository: Repository<department>,
     @Inject(EmployeeService)
     private readonly employeeService: EmployeeService,
   ) {}
 
-  async findAll(): Promise<Department[]> {
+  async findAll(): Promise<department[]> {
     return this.departmentRepository.find();
   }
 
-  async findChildDepartments(departmentId: string): Promise<Department[]> {
+  async findChildDepartments(departmentId: number): Promise<department[]> {
     return this.departmentRepository.find({
       where: {
-        departmentId: departmentId,
+        departmentid: departmentId,
       },
     });
   }
 
-  async findOne(id: string): Promise<ResGetDepartmentByIdDto> {
+  async findOne(id: number): Promise<ResGetDepartmentByIdDto> {
     const departmentEntity = await this.departmentRepository.findOne({
       where: {
         id,
@@ -38,11 +38,10 @@ export class DepartmentService {
     });
     const result = new ResGetDepartmentByIdDto();
     result.id = departmentEntity.id;
-    result.departmentId = departmentEntity.departmentId;
-    result.departmentName = departmentEntity.departmentName;
-    result.leaderId = departmentEntity.leaderId;
-    result.isActive = departmentEntity.isActive;
-    result.isComposite = departmentEntity.isComposite;
+    result.departmentid = departmentEntity.departmentid;
+    result.name = departmentEntity.name;
+    result.isactive = departmentEntity.isactive;
+    result.iscomposite = departmentEntity.iscomposite;
 
     result.childs = [].concat(
       await this.employeeService.findEmployeesByDepartmentId(id),
@@ -51,11 +50,11 @@ export class DepartmentService {
     return result;
   }
 
-  async create(department: Department): Promise<Department> {
+  async create(department: department): Promise<department> {
     return this.departmentRepository.save(department);
   }
 
-  async update(id: string, user: Department): Promise<Department> {
+  async update(id: number, user: department): Promise<department> {
     await this.departmentRepository.update(id, user);
     return this.departmentRepository.findOne({
       where: {

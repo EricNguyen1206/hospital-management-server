@@ -8,19 +8,19 @@ import {
   EmployeeController,
 } from './controllers';
 import { AppService, DepartmentService, EmployeeService } from './services';
-import { Department } from './models/department.entity';
-import { Employee } from './models/employee.entity';
+import { department } from './models/department.entity';
+import { employee } from './models/employee.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
+      url: 'postgresql://postgres:RpM0w4Z87qoZcqRvM6z5@containers-us-west-15.railway.app:6100/railway',
       synchronize: true,
-      entities: [Department, Employee],
+      entities: [department, employee],
       migrations: ['migrations/*.ts'],
     }),
-    TypeOrmModule.forFeature([Department, Employee]),
+    TypeOrmModule.forFeature([department, employee]),
   ],
   controllers: [AppController, DepartmentController, EmployeeController],
   providers: [AppService, DepartmentService, EmployeeService],

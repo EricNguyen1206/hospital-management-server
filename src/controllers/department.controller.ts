@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 // INTERNAL
 import {
-  Department,
+  department,
   ResGetDepartmentByIdDto,
 } from '@/models/department.entity';
 import { DepartmentService } from '@/services';
@@ -19,7 +19,7 @@ export class DepartmentController {
     description: 'OK',
   })
   @ApiResponse({ status: 404, description: 'Resource not found.' })
-  async findAll(): Promise<Department[]> {
+  async findAll(): Promise<department[]> {
     return this.departmentService.findAll();
   }
 
@@ -29,7 +29,7 @@ export class DepartmentController {
     description: 'OK',
   })
   @ApiResponse({ status: 404, description: 'Resource not found.' })
-  async findOne(@Param('id') id: string): Promise<ResGetDepartmentByIdDto> {
+  async findOne(@Param('id') id: number): Promise<ResGetDepartmentByIdDto> {
     const data = this.departmentService.findOne(id);
     return data;
   }
@@ -40,7 +40,7 @@ export class DepartmentController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async create(@Body() department: Department): Promise<Department> {
+  async create(@Body() department: department): Promise<department> {
     return this.departmentService.create(department);
   }
 }

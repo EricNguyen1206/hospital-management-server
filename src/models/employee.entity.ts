@@ -4,18 +4,18 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { ComponentEntity } from './component.entity';
 
 @Entity()
-export class Employee implements ComponentEntity {
+export class employee implements ComponentEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  fullName: string;
+  fullname: string;
 
   @Column()
   gender: number;
 
   @Column()
-  dateOfBirdth: Date;
+  dateofbirth: Date;
 
   @Column()
   address: string;
@@ -27,11 +27,14 @@ export class Employee implements ComponentEntity {
   email: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  isactive: boolean;
 
   @Column({ default: false })
-  isComposite: boolean;
+  iscomposite: boolean;
 
   @Column({ nullable: true })
-  departmentId: string;
+  departmentid: number;
+
+  @Column({ default: false })
+  isleader: boolean;
 }

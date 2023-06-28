@@ -5,55 +5,46 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ComponentEntity } from './component.entity';
 
 @Entity()
-export class Department implements ComponentEntity {
+export class department implements ComponentEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: number;
 
   @Column()
-  departmentName: string;
-
-  @Column({ nullable: true })
-  leaderId: string;
+  name: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  isactive: boolean;
 
   @Column({ default: true })
-  isComposite: boolean;
+  iscomposite: boolean;
 
   @Column({ nullable: true })
-  departmentId: string;
+  departmentid: number;
 }
 
 export class ReqCreateDepartmentDto {
   @ApiProperty()
-  departmentName: string;
+  name: string;
 
   @ApiProperty({ required: false })
-  leaderId?: string;
-
-  @ApiProperty({ required: false })
-  departmentId?: string;
+  departmentid?: string;
 }
 
-export class ResGetDepartmentByIdDto extends Department {
+export class ResGetDepartmentByIdDto extends department {
   @ApiProperty()
-  id: string;
+  id: number;
 
   @ApiProperty()
-  departmentName: string;
+  name: string;
 
   @ApiProperty()
-  leaderId: string;
+  iscomposite: boolean;
 
   @ApiProperty()
-  isComposite: boolean;
+  isactive: boolean;
 
   @ApiProperty()
-  isActive: boolean;
-
-  @ApiProperty()
-  departmentId: string;
+  departmentid: number;
 
   @ApiProperty()
   childs: ComponentEntity[];

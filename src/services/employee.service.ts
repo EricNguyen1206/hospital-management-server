@@ -16,7 +16,7 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
-  async findEmployeesByDepartmentId(departmentId: string): Promise<Employee[]> {
+  async findEmployeesByDepartmentId(departmentId: number): Promise<Employee[]> {
     return this.employeeRepository.find({
       where: {
         departmentId: departmentId,
@@ -24,7 +24,7 @@ export class EmployeeService {
     });
   }
 
-  async findOne(id: string): Promise<Employee> {
+  async findOne(id: number): Promise<Employee> {
     return this.employeeRepository.findOne({
       where: {
         id,
@@ -36,7 +36,7 @@ export class EmployeeService {
     return this.employeeRepository.save(employee);
   }
 
-  async update(id: string, employee: Employee): Promise<Employee> {
+  async update(id: number, employee: Employee): Promise<Employee> {
     await this.employeeRepository.update(id, employee);
     return this.employeeRepository.findOne({
       where: {

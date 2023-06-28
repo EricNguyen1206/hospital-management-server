@@ -15,7 +15,7 @@ import { employee } from './models/employee.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://postgres:RpM0w4Z87qoZcqRvM6z5@containers-us-west-15.railway.app:6100/railway',
+      url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
       synchronize: true,
       entities: [department, employee],
       migrations: ['migrations/*.ts'],

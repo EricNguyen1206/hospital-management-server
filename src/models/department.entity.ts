@@ -6,7 +6,7 @@ import { ComponentEntity } from './component.entity';
 
 @Entity()
 export class department implements ComponentEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

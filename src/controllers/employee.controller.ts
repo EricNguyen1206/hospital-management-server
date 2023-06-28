@@ -24,7 +24,7 @@ export class EmployeeController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Employee> {
+  async findOne(@Param('id') id: number): Promise<Employee> {
     return this.employeeService.findOne(id);
   }
 
@@ -35,7 +35,7 @@ export class EmployeeController {
 
   @Put(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() employee: Employee,
   ): Promise<Employee> {
     return this.employeeService.update(id, employee);

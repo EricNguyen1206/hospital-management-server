@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
 
 // INTERNAL
 import { ComponentEntity } from './component.entity';
@@ -6,7 +6,7 @@ import { ComponentEntity } from './component.entity';
 @Entity()
 export class Employee implements ComponentEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: number;
 
   @Column()
   fullName: string;
@@ -15,7 +15,7 @@ export class Employee implements ComponentEntity {
   gender: number;
 
   @Column()
-  dateOfBirdth: Date;
+  dateOfBirth: Date;
 
   @Column()
   address: string;
@@ -33,5 +33,14 @@ export class Employee implements ComponentEntity {
   isComposite: boolean;
 
   @Column({ nullable: true })
-  departmentId: string;
+  departmentId: number;
+
+  @Column({ nullable: true })
+  positionId: number;
+
+  @Column({ nullable: true })
+  titleId: number;
+
+  @Column({ default: false })
+  isLeader: boolean;
 }

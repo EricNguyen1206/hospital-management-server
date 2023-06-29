@@ -9,13 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { EmployeeService } from './Employee.service';
+
+// INTERNAL
+import { EmployeeService } from './employee.service';
 import { Employee } from './employee.entity';
 import { EmployeeDto, ReqCreateEmployeeDto } from './employee.dto';
 import { IPagination } from '@/common/interfaces/IPagination';
 import { IListResponse } from '@/common/interfaces/IListResponse';
-
-// INTERNAL
 
 @Controller('employee')
 @ApiTags('Employee')

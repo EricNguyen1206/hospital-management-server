@@ -1,12 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import { IComponent } from '@/common/interfaces/IComponent';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 // INTERNAL
-import { ComponentEntity } from './component.entity';
 
 @Entity()
-export class Employee implements ComponentEntity {
+export class Employee implements IComponent {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   fullName: string;
@@ -33,7 +33,7 @@ export class Employee implements ComponentEntity {
   isComposite: boolean;
 
   @Column({ nullable: true })
-  departmentId: number;
+  departmentId: string;
 
   @Column({ nullable: true })
   positionId: number;

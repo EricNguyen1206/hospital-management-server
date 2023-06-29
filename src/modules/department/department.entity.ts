@@ -1,10 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 // INTERNAL
-import { ComponentEntity } from '../component';
+import { IComponent } from '@/common/interfaces/IComponent';
 
 @Entity()
-export class Department implements ComponentEntity {
+export class Department implements IComponent {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

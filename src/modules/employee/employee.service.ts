@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 // INTERNAL
-import { Employee } from '@/models/employee.entity';
+import { Employee } from '@/modules/employee/employee.entity';
+import { EmployeeDto, ReqCreateEmployeeDto } from './employee.dto';
+import { IPagination } from '@/common/interfaces/IPagination';
+import { IListResponse } from '@/common/interfaces/IListResponse';
 
 @Injectable()
 export class EmployeeService {
@@ -12,11 +15,18 @@ export class EmployeeService {
     private readonly employeeRepository: Repository<Employee>,
   ) {}
 
-  async findAll(): Promise<Employee[]> {
-    return this.employeeRepository.find();
+  async findAll({
+    offset,
+    limit,
+  }: IPagination): Promise<IListResponse<EmployeeDto>> {
+    const [employees, total] = await this.employeeRepository.findAndCount({
+      skip: offset,
+      take: limit,
+    });
+    return { total, data: employees };
   }
 
-  async findEmployeesByDepartmentId(departmentId: number): Promise<Employee[]> {
+  async findEmployeesByDepartmentId(departmentId: string): Promise<Employee[]> {
     return this.employeeRepository.find({
       where: {
         departmentId: departmentId,
@@ -24,7 +34,7 @@ export class EmployeeService {
     });
   }
 
-  async findOne(id: number): Promise<Employee> {
+  async findOne(id: string): Promise<Employee> {
     return this.employeeRepository.findOne({
       where: {
         id,
@@ -32,11 +42,11 @@ export class EmployeeService {
     });
   }
 
-  async create(employee: Employee): Promise<Employee> {
+  async create(employee: ReqCreateEmployeeDto): Promise<EmployeeDto> {
     return this.employeeRepository.save(employee);
   }
 
-  async update(id: number, employee: Employee): Promise<Employee> {
+  async update(id: string, employee: Employee): Promise<Employee> {
     await this.employeeRepository.update(id, employee);
     return this.employeeRepository.findOne({
       where: {

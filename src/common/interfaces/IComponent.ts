@@ -1,4 +1,4 @@
-export interface ComponentEntity {
+export interface IComponent {
   id: string;
   departmentId: string;
   isActive: boolean;

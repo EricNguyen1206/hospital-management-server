@@ -7,7 +7,7 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
- 
+
   async executeQuery(query: string): Promise<any> {
     try {
       const result = await this.connection.query(query);

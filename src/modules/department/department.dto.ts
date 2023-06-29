@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 // INTERNAL
 import { Department } from './department.entity';
-import { ComponentEntity } from '../component/component.entity';
+import { IComponent } from '@/common/interfaces/IComponent';
 
 export class DepartmentDto extends Department {
   @ApiProperty()
@@ -69,5 +69,5 @@ export class ResGetDepartmentByIdDto extends Department {
   departmentId: string;
 
   @ApiProperty()
-  childs: ComponentEntity[];
+  childs: IComponent[];
 }

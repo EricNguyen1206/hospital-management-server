@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { AppService } from '../services/app.service';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
@@ -12,6 +12,6 @@ export class AppController {
 
   @Post('/query')
   executeQuery(@Body() body: string): any {
-    return this.appService.executeQuery(body["query"]);
+    return this.appService.executeQuery(body['query']);
   }
 }

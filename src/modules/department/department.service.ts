@@ -9,16 +9,27 @@ import {
   ReqUpdateDepartmentDto,
   ResGetDepartmentByIdDto,
 } from './department.dto';
+import { EmployeeService } from '../employee/employee.service';
+import { IListResponse } from '@/common/interfaces/IListResponse';
 
 @Injectable()
 export class DepartmentService {
   constructor(
     @InjectRepository(Department)
     private readonly departmentRepository: Repository<Department>,
+    private readonly employeeService: EmployeeService,
   ) {}
 
-  async findAll(): Promise<Department[]> {
-    return this.departmentRepository.find();
+  async findAll(offset = 0, limit = 5): Promise<IListResponse<DepartmentDto>> {
+    console.log('offset :>> ', offset);
+    const [employees, total] = await this.departmentRepository.findAndCount({
+      skip: offset,
+      take: limit,
+      where: {
+        isActive: true,
+      },
+    });
+    return { total, data: employees };
   }
 
   async findChildDepartments(departmentId: string): Promise<Department[]> {
@@ -44,7 +55,7 @@ export class DepartmentService {
     result.isComposite = departmentEntity.isComposite;
 
     result.childs = [].concat(
-      // await this.employeeService.findEmployeesByDepartmentId(id),
+      await this.employeeService.findEmployeesByDepartmentId(id),
       await this.findChildDepartments(id),
     );
     return result;

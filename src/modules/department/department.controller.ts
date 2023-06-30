@@ -1,5 +1,5 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 
 // INTERNAL
 import { DepartmentService } from './department.service';
@@ -8,6 +8,8 @@ import {
   ReqUpdateDepartmentDto,
   ResGetDepartmentByIdDto,
 } from './department.dto';
+import { IListResponse } from '@/common/interfaces/IListResponse';
+import { IPagination } from '@/common/interfaces/IPagination';
 
 @ApiTags('Department')
 @Controller('department')
@@ -20,8 +22,10 @@ export class DepartmentController {
     description: 'OK',
   })
   @ApiResponse({ status: 404, description: 'Resource not found.' })
-  async findAll(): Promise<DepartmentDto[]> {
-    return this.departmentService.findAll();
+  async findAll(
+    @Query() { offset, limit }: IPagination,
+  ): Promise<IListResponse<DepartmentDto>> {
+    return this.departmentService.findAll(offset, limit);
   }
 
   @Get(':id')
@@ -40,12 +44,19 @@ export class DepartmentController {
     status: 201,
     description: 'The record has been successfully created.',
   })
+  @ApiResponse({ status: 400, description: 'Validate field error.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async create(@Body() department: DepartmentDto): Promise<DepartmentDto> {
     return this.departmentService.create(department);
   }
 
   @Put(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'The record has been successfully updated.',
+  })
+  @ApiResponse({ status: 400, description: 'Validate field error.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   async update(
     @Param('id') id: string,
     @Body() newDepartmentData: ReqUpdateDepartmentDto,

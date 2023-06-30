@@ -79,3 +79,35 @@ export class ReqCreateEmployeeDto {
   @ApiProperty({ required: false, default: false })
   isLeader: boolean;
 }
+
+export class ReqUpdateEmployeeDto {
+  @ApiProperty()
+  fullName: string;
+
+  @ApiProperty()
+  gender: number;
+
+  @ApiProperty()
+  dateOfBirth: Date;
+
+  @ApiProperty()
+  address: string;
+
+  @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty({ nullable: true })
+  departmentId: string;
+
+  @ApiProperty({ nullable: true })
+  positionId: number;
+
+  @ApiProperty({ nullable: true })
+  titleId: number;
+
+  @ApiProperty({ required: false, default: false })
+  isLeader: boolean;
+}

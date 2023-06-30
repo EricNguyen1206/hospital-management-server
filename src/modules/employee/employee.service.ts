@@ -4,8 +4,11 @@ import { Repository } from 'typeorm';
 
 // INTERNAL
 import { Employee } from '@/modules/employee/employee.entity';
-import { EmployeeDto, ReqCreateEmployeeDto } from './employee.dto';
-import { IPagination } from '@/common/interfaces/IPagination';
+import {
+  EmployeeDto,
+  ReqCreateEmployeeDto,
+  ReqUpdateEmployeeDto,
+} from './employee.dto';
 import { IListResponse } from '@/common/interfaces/IListResponse';
 
 @Injectable()
@@ -15,18 +18,20 @@ export class EmployeeService {
     private readonly employeeRepository: Repository<Employee>,
   ) {}
 
-  async findAll({
-    offset,
-    limit,
-  }: IPagination): Promise<IListResponse<EmployeeDto>> {
+  async findAll(offset = 0, limit = 5): Promise<IListResponse<EmployeeDto>> {
     const [employees, total] = await this.employeeRepository.findAndCount({
       skip: offset,
       take: limit,
+      where: {
+        isActive: true,
+      },
     });
     return { total, data: employees };
   }
 
-  async findEmployeesByDepartmentId(departmentId: string): Promise<Employee[]> {
+  async findEmployeesByDepartmentId(
+    departmentId: string,
+  ): Promise<EmployeeDto[]> {
     return this.employeeRepository.find({
       where: {
         departmentId: departmentId,
@@ -46,7 +51,10 @@ export class EmployeeService {
     return this.employeeRepository.save(employee);
   }
 
-  async update(id: string, employee: Employee): Promise<Employee> {
+  async update(
+    id: string,
+    employee: ReqUpdateEmployeeDto,
+  ): Promise<EmployeeDto> {
     await this.employeeRepository.update(id, employee);
     return this.employeeRepository.findOne({
       where: {

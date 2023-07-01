@@ -42,15 +42,15 @@ export class ScheduleService {
         }
         return newArray;
     }
-    function zip(moring: Employee[], afternoon: Employee[]): object {
-        const length = Math.min(moring.length, afternoon.length);
+    function zip(morning: Employee[], afternoon: Employee[]): object {
+        const length = Math.min(morning.length, afternoon.length);
         const result: object = {};
       
         for (let i = 0; i < length; i++) {
             let shift = {
-                moring: {
-                    id : moring[i]["id"],
-                    name : moring[i]["fullName"],
+                morning: {
+                    id : morning[i]["id"],
+                    name : morning[i]["fullName"],
                 },
                 afternoon: {
                     id : afternoon[i]["id"],

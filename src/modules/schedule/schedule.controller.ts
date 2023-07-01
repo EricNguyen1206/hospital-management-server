@@ -11,5 +11,9 @@ export class ScheduleController {
   getCurrentSchedule(): any {
     return this.scheduleService.getCurrentSchedule();
   }
+  @Get('/next')
+  getNextSchedule(): any {
+    return this.scheduleService.getNextSchedule();
+  }
 
 }

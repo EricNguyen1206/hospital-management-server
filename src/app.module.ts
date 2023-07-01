@@ -9,6 +9,7 @@ import { EmployeeModule } from './modules/employee/employee.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScheduleModule } from './modules/schedule/schedule.module';
+import { TimeTable } from './modules/schedule/schedule.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
       type: 'postgres',
       url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
       synchronize: true,
-      entities: [Department, Employee],
+      entities: [Department, Employee, TimeTable],
       migrations: ['migrations/*.ts'],
     }),
     TypeOrmModule.forFeature([Employee]),

@@ -93,10 +93,10 @@ export class ScheduleService {
         return schedule;
     }
     async getSchedule(n: number): Promise<any> {
-        const schedule = await this.getScheduleFromDatabase(n);
-        if (schedule != null) {
-            return schedule;
-        }
+        // const schedule = await this.getScheduleFromDatabase(n);
+        // if (schedule != null) {
+        //     return schedule;
+        // }
 
         const departments = await this.departmentRepository.find({
             where: {

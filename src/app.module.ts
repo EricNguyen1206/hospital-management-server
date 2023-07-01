@@ -8,6 +8,7 @@ import { Department } from './modules/department/department.entity';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AppService } from './app.service';
     TypeOrmModule.forFeature([Employee]),
     DepartmentModule,
     EmployeeModule,
+    ScheduleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

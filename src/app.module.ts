@@ -8,17 +8,11 @@ import { Department } from './modules/department/department.entity';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { typeOrmConfig } from './configs/typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: 'postgresql://postgres:w3q2UdyNkGezjeMSWDiT@containers-us-west-74.railway.app:7051/railway',
-      synchronize: true,
-      entities: [Department, Employee],
-      migrations: ['migrations/*.ts'],
-    }),
-    TypeOrmModule.forFeature([Employee]),
+    TypeOrmModule.forRoot(typeOrmConfig),
     DepartmentModule,
     EmployeeModule,
   ],

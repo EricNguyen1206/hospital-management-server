@@ -23,19 +23,19 @@ export class EmployeeDto extends Employee {
   @ApiProperty()
   email: string;
 
-  @ApiProperty({ default: true })
+  @ApiProperty({ required: false, default: true })
   isActive: boolean;
 
-  @ApiProperty({ default: false })
+  @ApiProperty({ required: false, default: false })
   isComposite: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   departmentId: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   positionId: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   titleId: number;
 
   @ApiProperty({ required: false, default: false })
@@ -67,13 +67,13 @@ export class ReqCreateEmployeeDto {
   @ApiProperty({ default: false })
   isComposite: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   departmentId: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   positionId: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   titleId: number;
 
   @ApiProperty({ required: false, default: false })
@@ -81,33 +81,33 @@ export class ReqCreateEmployeeDto {
 }
 
 export class ReqUpdateEmployeeDto {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   fullName: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   gender: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   dateOfBirth: Date;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   address: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   email: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   departmentId: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   positionId: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   titleId: number;
 
-  @ApiProperty({ required: false, default: false })
+  @ApiProperty({ required: false })
   isLeader: boolean;
 }
